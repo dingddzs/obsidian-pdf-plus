@@ -7,7 +7,7 @@
  *   3. The key itself (last resort)
  */
 
-let currentLocale = 'en';
+let currentLocale = 'zh';
 
 /** Detect Obsidian interface language */
 function detectLocale(): string {
