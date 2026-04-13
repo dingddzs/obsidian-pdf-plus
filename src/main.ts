@@ -14,6 +14,7 @@ import { InstallerVersionModal } from 'modals';
 import { PDFExternalLinkPostProcessor, PDFInternalLinkPostProcessor, PDFOutlineItemPostProcessor, PDFThumbnailItemPostProcessor } from 'post-process';
 import { BibliographyManager } from 'bib';
 import { DataviewInlineFieldsModal, withFilesWithInlineFields } from 'lib/dataview';
+import { t, initI18n } from './i18n';
 
 
 export default class PDFPlus extends Plugin {
@@ -89,6 +90,7 @@ export default class PDFPlus extends Plugin {
 	isDebugMode: boolean = false;
 
 	async onload() {
+		initI18n();
 		this.checkVersion();
 
 		this.addIcons();
@@ -467,7 +469,7 @@ export default class PDFPlus extends Plugin {
 		if (this.settings.autoFocusToggleRibbonIcon) {
 			let menuShown = false;
 
-			this.autoFocusToggleIconEl = this.addRibbonIcon(this.settings.autoFocusIconName, `${this.manifest.name}: Toggle auto-focus`, () => {
+			this.autoFocusToggleIconEl = this.addRibbonIcon(this.settings.autoFocusIconName, t('plugin.toggle-auto-focus'), () => {
 				if (!menuShown) this.toggleAutoFocus();
 			});
 			this.autoFocusToggleIconEl.toggleClass('is-active', this.settings.autoFocus);
@@ -478,7 +480,7 @@ export default class PDFPlus extends Plugin {
 				const menu = new Menu();
 				menu.addItem((item) => {
 					item.setIcon('lucide-settings')
-						.setTitle('Customize...')
+						.setTitle(t('tooltip.customize'))
 						.onClick(() => {
 							this.openSettingTab().scrollToHeading('auto-focus');
 						});
@@ -492,7 +494,7 @@ export default class PDFPlus extends Plugin {
 		if (this.settings.autoPasteToggleRibbonIcon) {
 			let menuShown = false;
 
-			this.autoPasteToggleIconEl = this.addRibbonIcon(this.settings.autoPasteIconName, `${this.manifest.name}: Toggle auto-paste`, () => {
+			this.autoPasteToggleIconEl = this.addRibbonIcon(this.settings.autoPasteIconName, t('plugin.toggle-auto-paste'), () => {
 				if (!menuShown) this.toggleAutoPaste();
 			});
 			this.autoPasteToggleIconEl.toggleClass('is-active', this.settings.autoPaste);
@@ -502,7 +504,7 @@ export default class PDFPlus extends Plugin {
 				const menu = new Menu();
 				menu.addItem((item) => {
 					item.setIcon('lucide-settings')
-						.setTitle('Customize...')
+						.setTitle(t('tooltip.customize'))
 						.onClick(() => {
 							this.openSettingTab().scrollToHeading('auto-paste');
 						});
@@ -776,9 +778,9 @@ export default class PDFPlus extends Plugin {
 			this.app.workspace.onLayoutReady(() => {
 				new Notice(createFragment((el) => {
 					el.append(
-						'PDF++: There is a newer version available! ',
+						t('notice.newer-version-available'),
 						createEl('a', {
-							text: 'Update now',
+							text: t('notice.update-now'),
 							href: 'obsidian://show-plugin?id=pdf-plus',
 						})
 					);
@@ -795,32 +797,32 @@ export default class PDFPlus extends Plugin {
 	private registerHoverLinkSources() {
 		this.registerHoverLinkSource('pdf-plus', {
 			defaultMod: true,
-			display: 'PDF++: backlink highlights'
+			display: t('hover-link-source.backlink-highlights')
 		});
 
 		this.registerHoverLinkSource(PDFInternalLinkPostProcessor.HOVER_LINK_SOURCE_ID, {
 			defaultMod: true,
-			display: 'PDF++: internal links in PDF (except for citations)'
+			display: t('hover-link-source.internal-links')
 		});
 
 		this.registerHoverLinkSource(BibliographyManager.HOVER_LINK_SOURCE_ID, {
 			defaultMod: false,
-			display: 'PDF++: citation links in PDF'
+			display: t('hover-link-source.citation-links')
 		});
 
 		this.registerHoverLinkSource(PDFExternalLinkPostProcessor.HOVER_LINK_SOURCE_ID, {
 			defaultMod: true,
-			display: 'PDF++: external links in PDF'
+			display: t('hover-link-source.external-links')
 		});
 
 		this.registerHoverLinkSource(PDFOutlineItemPostProcessor.HOVER_LINK_SOURCE_ID, {
 			defaultMod: true,
-			display: 'PDF++: outlines (bookmarks)'
+			display: t('hover-link-source.outlines')
 		});
 
 		this.registerHoverLinkSource(PDFThumbnailItemPostProcessor.HOVER_LINK_SOURCE_ID, {
 			defaultMod: true,
-			display: 'PDF++: thumbnails'
+			display: t('hover-link-source.thumbnails')
 		});
 	}
 

@@ -3,6 +3,7 @@ import { PDFDocument, PageSizes } from '@cantoo/pdf-lib';
 
 import PDFPlus from 'main';
 import { PDFPlusModal } from 'modals';
+import { t } from '../i18n';
 
 
 export class PDFPageDeleteModal extends PDFPlusModal {
@@ -80,8 +81,8 @@ export class PDFPageDeleteModal extends PDFPlusModal {
 
 
 export const PAGE_LABEL_UPDATE_METHODS = {
-    'keep': 'Keep labels unchanged',
-    'update': 'Update',
+    'keep': t('setting.page-label-update-method.keep'),
+    'update': t('setting.page-label-update-method.update'),
 } as const;
 export type PageLabelUpdateMethod = keyof typeof PAGE_LABEL_UPDATE_METHODS;
 

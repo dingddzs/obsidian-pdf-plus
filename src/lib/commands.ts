@@ -11,6 +11,7 @@ import { SidebarView } from 'pdfjs-enums';
 import { showContextMenuAtSelection } from 'context-menu';
 import { RestoreDefaultModal } from 'modals/restore-default-modal';
 import { DataviewInlineFieldsModal } from './dataview';
+import { t } from '../i18n';
 
 
 export class PDFPlusCommands extends PDFPlusLibSubmodule {
@@ -22,11 +23,11 @@ export class PDFPlusCommands extends PDFPlusLibSubmodule {
         const commandArray: Command[] = [
             {
                 id: 'copy-link-to-selection',
-                name: 'Copy link to selection or annotation',
+                name: t('command.copy-link-to-selection-or-annotation'),
                 checkCallback: (checking) => this.copyLink(checking, false)
             }, {
                 id: 'rectangular-selection',
-                name: 'Start rectangular selection',
+                name: t('command.start-rectangular-selection'),
                 checkCallback: (checking) => this.copyEmbedLinkToRectangularSelection(checking, false)
             },
             // {
@@ -36,170 +37,170 @@ export class PDFPlusCommands extends PDFPlusLibSubmodule {
             // },
             {
                 id: 'context-menu',
-                name: 'Show context menu at selection',
+                name: t('command.show-context-menu-at-selection'),
                 checkCallback: (checking) => this.showContextMenu(checking)
             },
             {
                 id: 'extract-annotation-and-copy-links',
-                name: 'Extract & copy annotations in this PDF',
+                name: t('command.extract-copy-annotations'),
                 checkCallback: (checking) => this.extractHighlightedText(checking)
             },
             {
                 id: 'copy-link-to-page-view',
-                name: 'Copy link to current page view',
+                name: t('command.copy-link-to-current-page-view'),
                 checkCallback: (checking) => this.copyLinkToPageView(checking)
             }, {
                 id: 'outline',
-                name: 'Show outline',
+                name: t('command.show-outline'),
                 checkCallback: (checking) => this.showOutline(checking)
             }, {
                 id: 'thumbnail',
-                name: 'Show thumbnail',
+                name: t('command.show-thumbnail'),
                 checkCallback: (checking) => this.showThumbnail(checking)
             }, {
                 id: 'close-sidebar',
-                name: 'Close PDF sidebar',
+                name: t('command.close-pdf-sidebar'),
                 checkCallback: (checking) => this.closeSidebar(checking)
             }, {
                 id: 'toggle-sidebar',
-                name: 'Toggle PDF sidebar',
+                name: t('command.toggle-pdf-sidebar'),
                 checkCallback: (checking) => this.toggleSidebar(checking)
             }, {
                 id: 'fit-width',
-                name: 'Fit width',
+                name: t('command.fit-width'),
                 checkCallback: (checking) => this.setScaleValue(checking, 'page-width')
             }, {
                 id: 'fit-height',
-                name: 'Fit height',
+                name: t('command.fit-height'),
                 checkCallback: (checking) => this.setScaleValue(checking, 'page-height')
             }, {
                 id: 'zoom-in',
-                name: 'Zoom in',
+                name: t('command.zoom-in'),
                 checkCallback: (checking) => this.zoom(checking, true)
             }, {
                 id: 'zoom-out',
-                name: 'Zoom out',
+                name: t('command.zoom-out'),
                 checkCallback: (checking) => this.zoom(checking, false)
             }, {
                 id: 'adapt-to-theme',
-                name: 'Adapt to theme',
+                name: t('command.adapt-to-theme'),
                 checkCallback: (checking) => this.toggleAdaptToTheme(checking, true)
             }, {
                 id: 'not-adapt-to-theme',
-                name: 'Don\'t adapt to theme',
+                name: t('command.dont-adapt-to-theme'),
                 checkCallback: (checking) => this.toggleAdaptToTheme(checking, false)
             }, {
                 id: 'toggle-adapt-to-theme',
-                name: 'Toggle "adapt to theme"',
+                name: t('command.toggle-adapt-to-theme'),
                 checkCallback: (checking) => this.toggleAdaptToTheme(checking)
             }, {
                 id: 'go-to-page',
-                name: 'Go to page',
+                name: t('command.go-to-page'),
                 checkCallback: (checking) => this.focusAndSelectPageNumberEl(checking)
             }, {
                 id: 'copy-format-menu',
-                name: 'Show copy format menu',
+                name: t('command.show-copy-format-menu'),
                 checkCallback: (checking) => this.showCopyFormatMenu(checking)
             }, {
                 id: 'display-text-format-menu',
-                name: 'Show display text format menu',
+                name: t('command.show-display-text-format-menu'),
                 checkCallback: (checking) => this.showDisplayTextFormatMenu(checking)
             }, {
                 id: 'enable-pdf-edit',
-                name: 'Enable PDF edit',
+                name: t('command.enable-pdf-edit'),
                 checkCallback: (checking) => this.setWriteFile(checking, true)
             }, {
                 id: 'disable-pdf-edit',
-                name: 'Disable PDF edit',
+                name: t('command.disable-pdf-edit'),
                 checkCallback: (checking) => this.setWriteFile(checking, false)
             }, {
                 id: 'toggle-auto-focus',
-                name: 'Toggle auto-focus',
+                name: t('command.toggle-auto-focus'),
                 callback: () => this.toggleAutoFocus()
             }, {
                 id: 'toggle-auto-paste',
-                name: 'Toggle auto-paste',
+                name: t('command.toggle-auto-paste'),
                 callback: () => this.toggleAutoPaste()
             }, {
                 id: 'toggle-auto-copy',
-                name: 'Toggle auto-copy',
+                name: t('command.toggle-auto-copy'),
                 callback: () => this.plugin.autoCopyMode.toggle()
             }, {
                 id: 'add-page',
-                name: 'Add new page at the end',
+                name: t('command.add-new-page-at-end'),
                 checkCallback: (checking) => this.addPage(checking)
             }, {
                 id: 'insert-page-before',
-                name: 'Insert page before this page',
+                name: t('command.insert-page-before'),
                 checkCallback: (checking) => this.insertPage(checking, true)
             },
             {
                 id: 'insert-page-after',
-                name: 'Insert page after this page',
+                name: t('command.insert-page-after'),
                 checkCallback: (checking) => this.insertPage(checking, false)
             }, {
                 id: 'delete-page',
-                name: 'Delete this page',
+                name: t('command.delete-this-page'),
                 checkCallback: (checking) => this.deletePage(checking)
             }, {
                 id: 'extract-this-page',
-                name: 'Extract this page to a new file',
+                name: t('command.extract-this-page'),
                 checkCallback: (checking) => this.extractThisPage(checking)
             }, {
                 id: 'divide',
-                name: 'Divide this PDF into two files at this page',
+                name: t('command.divide-pdf-at-page'),
                 checkCallback: (checking) => this.dividePDF(checking)
             }, {
                 id: 'edit-page-labels',
-                name: 'Edit page labels',
+                name: t('command.edit-page-labels'),
                 checkCallback: (checking) => this.editPageLabels(checking)
             }, {
                 id: 'copy-outline-as-list',
-                name: 'Copy PDF outline as markdown list',
+                name: t('command.copy-outline-as-markdown-list'),
                 checkCallback: (checking) => this.copyOutline(checking, 'list')
             }, {
                 id: 'copy-outline-as-headings',
-                name: 'Copy PDF outline as markdown headings',
+                name: t('command.copy-outline-as-markdown-headings'),
                 checkCallback: (checking) => this.copyOutline(checking, 'heading')
             }, {
                 id: 'add-outline-item',
-                name: 'Add to outline (bookmark)',
+                name: t('command.add-to-outline'),
                 checkCallback: (checking) => this.addOutlineItem(checking)
             }, {
                 id: 'create-new-note',
-                name: 'Create new note for auto-focus or auto-paste',
+                name: t('command.create-new-note-for-auto'),
                 callback: () => this.createNewNote()
             }, {
                 id: 'copy-debug-info',
-                name: 'Copy debug info',
+                name: t('command.copy-debug-info'),
                 callback: () => this.copyDebugInfo()
             }, {
                 id: 'load-debug-info',
-                name: 'Load debug info',
+                name: t('command.load-debug-info'),
                 checkCallback: (checking) => this.loadDebugInfo(checking)
             }, {
                 id: 'create-pdf',
-                name: 'Create new PDF',
+                name: t('command.create-new-pdf'),
                 callback: () => this.createPDF()
             }, {
                 id: 'import',
-                name: 'Import this PDF into vault',
+                name: t('command.import-this-pdf'),
                 checkCallback: (checking) => this.importExternalFileIntoVault(checking)
             }, {
                 id: 'open-external',
-                name: 'Open this PDF in the original location',
+                name: t('command.open-pdf-in-original-location'),
                 checkCallback: (checking) => this.openExternalSource(checking)
             }, {
                 id: 'create-dummy',
-                name: 'Create dummy file for external PDF',
+                name: t('command.create-dummy-file'),
                 callback: () => this.createDummyForExternalPDF()
             }, {
                 id: 'restore-default',
-                name: 'Restore default settings',
+                name: t('command.restore-default-settings'),
                 callback: () => (new RestoreDefaultModal(this.plugin)).open()
             }, {
                 id: 'open-dataview-inline-fields-modal',
-                name: 'Check Dataview inline fields',
+                name: t('command.check-dataview-inline-fields'),
                 checkCallback: (checking) => {
                     if (!this.plugin.requiresDataviewInlineFieldsMigration) {
                         return false;

@@ -9,53 +9,54 @@ import { ScrollMode, SidebarView, SpreadMode } from 'pdfjs-enums';
 import { Menu } from 'obsidian';
 import { PDFExternalLinkPostProcessor, PDFInternalLinkPostProcessor, PDFOutlineItemPostProcessor, PDFThumbnailItemPostProcessor } from 'post-process';
 import { BibliographyManager } from 'bib';
+import { t } from './i18n';
 
 
 const SELECTION_BACKLINK_VISUALIZE_STYLE = {
-	'highlight': 'Highlight',
-	'underline': 'Underline',
+	'highlight': t('setting.highlight-style.highlight'),
+	'underline': t('setting.highlight-style.underline'),
 } as const;
 export type SelectionBacklinkVisualizeStyle = keyof typeof SELECTION_BACKLINK_VISUALIZE_STYLE;
 
 const HOVER_HIGHLIGHT_ACTIONS = {
-	'open': 'Open backlink',
-	'preview': 'Popover preview of backlink',
+	'open': t('setting.hover-highlight-action.open-backlink'),
+	'preview': t('setting.hover-highlight-action.popover-preview'),
 } as const;
 
 const PANE_TYPE: Record<ExtendedPaneType, string> = {
-	'': 'Current tab',
-	'tab': 'New tab',
-	'right': 'Split right',
-	'left': 'Split left',
-	'down': 'Split down',
-	'up': 'Split up',
-	'window': 'New window',
-	'right-sidebar': 'Right sidebar',
-	'left-sidebar': 'Left sidebar'
+	'': t('setting.pane-type.current-tab'),
+	'tab': t('setting.pane-type.new-tab'),
+	'right': t('setting.pane-type.split-right'),
+	'left': t('setting.pane-type.split-left'),
+	'down': t('setting.pane-type.split-down'),
+	'up': t('setting.pane-type.split-up'),
+	'window': t('setting.pane-type.new-window'),
+	'right-sidebar': t('setting.pane-type.right-sidebar'),
+	'left-sidebar': t('setting.pane-type.left-sidebar')
 };
 
 const AUTO_FOCUS_TARGETS: Record<AutoFocusTarget, string> = {
-	'last-paste': 'Last pasted .md',
-	'last-active': 'Last active .md',
-	'last-active-and-open': 'Last active & open .md',
-	'last-paste-then-last-active': 'Last pasted .md if any, otherwise last active .md',
-	'last-paste-then-last-active-and-open': 'Last pasted .md if any, otherwise last active & open .md',
-	'last-active-and-open-then-last-paste': 'Last active & open .md if any, otherwise last pasted .md',
+	'last-paste': t('setting.target-markdown.last-pasted'),
+	'last-active': t('setting.target-markdown.last-active'),
+	'last-active-and-open': t('setting.target-markdown.last-active-and-open'),
+	'last-paste-then-last-active': t('setting.target-markdown.last-pasted-then-last-active'),
+	'last-paste-then-last-active-and-open': t('setting.target-markdown.last-pasted-then-last-active-and-open'),
+	'last-active-and-open-then-last-paste': t('setting.target-markdown.last-active-and-open-then-last-pasted'),
 };
 
 const NEW_FILE_LOCATIONS = {
-	'root': 'Vault folder',
-	'current': 'Same folder as current file',
-	'folder': 'In the folder specified below',
+	'root': t('setting.new-pdf-location.vault-folder'),
+	'current': t('setting.new-pdf-location.current-folder'),
+	'folder': t('setting.new-pdf-location.in-specified-folder'),
 } as const;
 type NewFileLocation = keyof typeof NEW_FILE_LOCATIONS;
 
 const NEW_ATTACHMENT_LOCATIONS = {
-	'root': 'Vault folder',
-	'current': 'Same folder as current file',
-	'folder': 'In the folder specified below',
-	'subfolder': 'In subfolder under current folder',
-	'obsidian': 'Same as Obsidian\'s attachment location',
+	'root': t('setting.new-pdf-location.vault-folder'),
+	'current': t('setting.new-pdf-location.current-folder'),
+	'folder': t('setting.new-pdf-location.in-specified-folder'),
+	'subfolder': t('setting.new-pdf-location.subfolder'),
+	'obsidian': t('setting.attachment-location.obsidian-default'),
 } as const;
 type NewAttachmentLocation = keyof typeof NEW_ATTACHMENT_LOCATIONS;
 
@@ -75,15 +76,15 @@ export interface NamedTemplate {
 export const DEFAULT_BACKLINK_HOVER_COLOR = 'green';
 
 const ACTION_ON_CITATION_HOVER = {
-	'none': 'Same as other internal links',
-	'pdf-plus-bib-popover': 'PDF++\'s custom bibliography popover',
-	'google-scholar-popover': 'Google Scholar popover',
+	'none': t('setting.action-on-citation.same-as-other'),
+	'pdf-plus-bib-popover': t('setting.action-on-citation.pdf-plus-bib'),
+	'google-scholar-popover': t('setting.action-on-citation.google-scholar'),
 } as const;
 
 const MOBILE_COPY_ACTIONS = {
-	'text': 'Copy text',
-	'obsidian': 'Obsidian default (copy as quote)',
-	'pdf-plus': 'Run PDF++\'s copy command',
+	'text': t('setting.mobile-copy-action.copy-text'),
+	'obsidian': t('setting.mobile-copy-action.obsidian-default'),
+	'pdf-plus': t('setting.mobile-copy-action.pdf-plus-command'),
 } as const;
 
 export interface PDFPlusSettings {
@@ -317,23 +318,23 @@ export const DEFAULT_SETTINGS: PDFPlusSettings = {
 		// 	template: '{{file.basename}}, page {{page}}',
 		// },
 		{
-			name: 'Title & page',
+			name: t('display-text-format.title-page'),
 			template: '{{file.basename}}, p.{{pageLabel}}',
 		},
 		{
-			name: 'Page',
+			name: t('display-text-format.page'),
 			template: 'p.{{pageLabel}}',
 		},
 		{
-			name: 'Text',
+			name: t('display-text-format.text'),
 			template: '{{text}}',
 		},
 		{
-			name: 'Emoji',
+			name: t('display-text-format.emoji'),
 			template: '📖'
 		},
 		{
-			name: 'None',
+			name: t('display-text-format.none'),
 			template: ''
 		}
 	],
@@ -342,23 +343,23 @@ export const DEFAULT_SETTINGS: PDFPlusSettings = {
 	syncDefaultDisplayTextFormat: false,
 	copyCommands: [
 		{
-			name: 'Quote',
+			name: t('copy-format.quote'),
 			template: '> ({{linkWithDisplay}})\n> {{text}}\n',
 		},
 		{
-			name: 'Link',
+			name: t('copy-format.link'),
 			template: '{{linkWithDisplay}}'
 		},
 		{
-			name: 'Embed',
+			name: t('copy-format.embed'),
 			template: '!{{link}}',
 		},
 		{
-			name: 'Callout',
+			name: t('copy-format.callout'),
 			template: '> [!{{calloutType}}|{{color}}] {{linkWithDisplay}}\n> {{text}}\n',
 		},
 		{
-			name: 'Quote in callout',
+			name: t('copy-format.quote-in-callout'),
 			template: '> [!{{calloutType}}|{{color}}] {{linkWithDisplay}}\n> > {{text}}\n> \n> ',
 		}
 	],
